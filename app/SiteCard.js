@@ -1,5 +1,4 @@
 import React from 'react';
-import { shape, string } from 'prop-types';
 
 class SiteName extends React.Component {
   render() {
@@ -11,10 +10,6 @@ class SiteName extends React.Component {
   }
 }
 
-SiteName.propTypes = {
-  site_name: string.isRequired
-};
-
 class GageHeight extends React.Component {
   render() {
     return (
@@ -22,10 +17,6 @@ class GageHeight extends React.Component {
     );
   }
 }
-
-GageHeight.propTypes = {
-  gage_height: string.isRequired
-};
 
 class Distance extends React.Component {
   render () {
@@ -36,10 +27,6 @@ class Distance extends React.Component {
     );
   }
 }
-
-Distance.propTypes = {
-  distance: string.isRequired
-};
 
 class SiteCard extends React.Component {
   render() {
@@ -54,14 +41,5 @@ class SiteCard extends React.Component {
     );
   }
 }
-
-SiteCard.propTypes = {
-  data: shape({
-    detail_link: string.isRequired,
-    distance: string.isRequired,
-    gage_height: string.isRequired,
-    site_name: string.isRequired
-  })
-};
 
 export default SiteCard;

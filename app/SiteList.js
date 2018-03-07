@@ -1,7 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
 import '../public/styles.css';
-import { shape } from 'prop-types';
 import SiteCard from './SiteCard.js';
 import SiteDetail from './SiteDetail.js';
 
@@ -62,10 +61,6 @@ class SiteList extends React.Component{
   }
 }
 
-SiteList.propTypes = {
-  site_list: shape({}).isRequired
-};
-
 class LocationSearch extends React.Component{
 
   constructor(props) {
@@ -74,8 +69,8 @@ class LocationSearch extends React.Component{
       value: '',
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   render() {

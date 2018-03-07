@@ -32,6 +32,7 @@ module.exports = {
             "error",
             "single"
         ],
+        "react/prop-types": 0,
         "semi": [
             "error",
             "always"

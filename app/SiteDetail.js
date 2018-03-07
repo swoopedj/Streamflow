@@ -1,5 +1,4 @@
 import React from 'react';
-import { shape, string } from 'prop-types';
 
 class TitleBar extends React.Component {
   render() {
@@ -11,11 +10,6 @@ class TitleBar extends React.Component {
     );
   }
 }
-
-TitleBar.propTypes = {
-  site_id : string.isRequired,
-  site_name: string.isRequired
-};
 
 class CurrentConditions extends React.Component {
   render() {
@@ -37,12 +31,6 @@ class CurrentConditions extends React.Component {
     );
   }
 }
-
-CurrentConditions.propTypes = {
-  date_time: string.isRequired,
-  discharge: string,
-  gage_height: string,
-};
 
 class SiteInfo extends React.Component {
   render() {
@@ -79,13 +67,6 @@ class HydroGraph extends React.Component {
   }
 }
 
-HydroGraph.propTypes = {
-  graph_link: string
-};
-
-
-
-
 class SiteDetail extends React.Component {
   render() {
     return (
@@ -101,17 +82,5 @@ class SiteDetail extends React.Component {
     );
   }
 }
-
-SiteDetail.propTypes = {
-  data: shape({
-    site_name: string.isRequired,
-    date_time: string.isRequired,
-    discharge: string,
-    gage_height: string,
-    gh_graph_link: string,
-    latitude: string,
-    longitude: string
-  }).isRequired
-};
 
 export default SiteDetail;

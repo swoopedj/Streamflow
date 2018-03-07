@@ -11,6 +11,10 @@
   width: 40%;
 }
 
+.search span {
+  margin: 5px;
+}
+
 .input_group {
   position: relative;
   margin-bottom: 2rem;
