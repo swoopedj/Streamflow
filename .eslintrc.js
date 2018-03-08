@@ -28,10 +28,12 @@ module.exports = {
             "error",
             "unix"
         ],
+        "no-console": 1,
         "quotes": [
             "error",
             "single"
         ],
+        "react/prop-types": 0,
         "semi": [
             "error",
             "always"

@@ -1,7 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
 import '../public/styles.css';
-import { shape } from 'prop-types';
 import SiteCard from './SiteCard.js';
 import SiteDetail from './SiteDetail.js';
 
@@ -27,7 +26,7 @@ class SiteList extends React.Component{
   renderSiteList () {
     const list = this.state.sites.map((site, index) => {
       return (
-        <li key={index} onClick={() => this.openModal(index)}>
+        <li key={site.site_id} onClick={() => this.openModal(index)}>
           <SiteCard data={site} />
         </li>
       );
@@ -38,8 +37,6 @@ class SiteList extends React.Component{
         <ul>
           {list}
         </ul>
-        <hr />
-        <LocationSearch />
       </div>
     );
   }
@@ -58,35 +55,6 @@ class SiteList extends React.Component{
           <a className="close_modal" onClick={this.closeModal} href="">CLOSE</a>
         </Modal>
       </div>
-    );
-  }
-}
-
-SiteList.propTypes = {
-  site_list: shape({}).isRequired
-};
-
-class LocationSearch extends React.Component{
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: '',
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Enter your location:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
     );
   }
 }
