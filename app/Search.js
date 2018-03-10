@@ -105,7 +105,7 @@ class Search extends React.Component{
           radius: this.state.proximity
         }
       }).then(results => {
-        console.log('SiteList ===> ', results);
+        console.log('SiteList ===> ', results.data);
       });
     }).catch(err => {
       console.log('err => ', err);

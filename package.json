@@ -19,6 +19,7 @@
     "compression": "1.6.2",
     "cors": "2.8.3",
     "css-loader": "0.25.0",
+    "dotenv": "^5.0.1",
     "express": "4.15.3",
     "lodash": "4.17.4",
     "preact": "8.1.0",

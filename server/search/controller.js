@@ -1,21 +1,21 @@
-var request = require('request');
-var formatBbox = require('../util/format-bbox.js');
+require('dotenv').config();
+const request = require('request');
+const formatBbox = require('../util/format-bbox.js');
 const formatSite = require('../util/format-site.js');
 const mergeSiteParams = require('../util/param-merge.js');
+const geo_key = process.env.GOOGLE_GEO_KEY;
 
 var Search = module.exports;
 
 // GET request to Google Maps for Lat/Long coordinates of an address 
 Search.getLatLongCoordinates = function(address){  
-  var baseUrl =  'https://maps.googleapis.com/maps/api/geocode/json?address=' + address;
+  var baseUrl =  `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${geo_key}`;
   var options = {
-    url: baseUrl,
-    'X-App-Token': process.env.GOOGLE_API_TOKEN
+    url: baseUrl
   };
   return new Promise(function(resolve, reject){
     request.get(options, function(error, response, body){
       if(error){
-        console.log('Error in server: ', error);
         reject(error);
       } else {
         response.body = JSON.parse(body);
