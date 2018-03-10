@@ -1,5 +1,5 @@
 var request = require('request');
-var bBox_formatter = require('../formatters/bBox-formatter.js');
+var bBox_formatter = require('../util/format-bbox.js');
 
 var Search = module.exports;
 
@@ -14,7 +14,7 @@ Search.getLatLongCoordinates = function(address){
     request.get(options, function(error, response, body){
       if(error){
         console.log('Error in server: ', error);
-        throw new Error(error);
+        reject(error);
       } else {
         response.body = JSON.parse(body);
         resolve(response.body);
@@ -25,17 +25,16 @@ Search.getLatLongCoordinates = function(address){
 
 
 // GET request to USGS for sites within Lat/Long boundary box
-Search.findSitesInBoundaryBox = function(coordinates){
+Search.findSitesInBoundaryBox = function(coordinates, radius){
   var baseUrl =  'http://waterservices.usgs.gov/nwis/iv/?format=json,1.1&bBox=';
-  var formatted_bBox = bBox_formatter(coordinates);
+  var formatted_bBox = bBox_formatter(coordinates, radius);
   var options = {
     url: baseUrl + formatted_bBox + '&parameterCd=00060,00065,00062',
   };
   return new Promise(function(resolve, reject){
     request.get(options, function(error, response, body){
       if(error){
-        console.log('Error in server: ', error);
-        throw new Error(error);
+        reject(error);
       } else {
         response.body = JSON.parse(body);
         resolve(response.body);
@@ -46,19 +45,18 @@ Search.findSitesInBoundaryBox = function(coordinates){
 
 //GET request to USGS for specific site id
 Search.getDataBySiteId = function(siteId){
-  var baseUrl =  'http://waterservices.usgs.gov/nwis/iv/?format=json,1.1&sites=' + siteId
+  var baseUrl =  'http://waterservices.usgs.gov/nwis/iv/?format=json,1.1&sites=' + siteId;
   var options = {
     url: baseUrl,
   };
   return new Promise(function(resolve, reject){
     request.get(options, function(error, response, body){
       if(error){
-        console.log('Error: ', error)
-        throw new Error(error)
+        reject(error);
       } else {
         response.body = JSON.parse(body);
         resolve(response.body);
       }
-    })    
-  })
-}
+    });
+  });
+};
