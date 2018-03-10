@@ -1,29 +1,28 @@
-module.exports = function(coordinates) {
-  var longitude_constant = 0.018315;
-  var latitude_constant = 0.014492;
-  var radius = coordinates.radius;
-  var lat = Number(coordinates.lat);
-  var long = Number(coordinates.long);
-  var bBox = {
+module.exports = function(coords, radius) {
+  let longitude_constant = 0.018315;
+  let latitude_constant = 0.014492;
+  let lat = Number(JSON.parse(coords).lat);
+  let long = Number(JSON.parse(coords).lng);
+  let bBox = {
     west: long - (radius * longitude_constant),
     south: lat - (radius * latitude_constant),
     east: long + (radius * longitude_constant),
     north: lat + (radius * latitude_constant)
-  }
-  var westLong = round(bBox.west).toString()
-  var southLat = round(bBox.south).toString()
-  var eastLong = round(bBox.east).toString()
-  var northLat = round(bBox.north).toString()
+  };
+  let westLong = round(bBox.west).toString();
+  let southLat = round(bBox.south).toString();
+  let eastLong = round(bBox.east).toString();
+  let northLat = round(bBox.north).toString();
 
   return westLong + ',' + southLat + ',' + eastLong + ',' + northLat;
-}
+};
 
 function round(n){
-  var str = n.toString()
+  let str = n.toString();
   if(str.indexOf('.') !== -1){
-    var index = str.indexOf('.')
-    var decimalSlice = str.slice(index, index + 6)
-    var integerSlice = str.slice(0, index)
-    return Number(integerSlice + decimalSlice)
-  } else {return n}
+    let index = str.indexOf('.');
+    let decimalSlice = str.slice(index, index + 6);
+    let integerSlice = str.slice(0, index);
+    return Number(integerSlice + decimalSlice);
+  } else {return n;}
 }

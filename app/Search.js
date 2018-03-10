@@ -1,5 +1,7 @@
 import React from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
+// import bBoxFormatter from './util/format-bbox.js';
 
 const SearchWrapper = styled.div`
   align-items: center;
@@ -91,6 +93,23 @@ class Search extends React.Component{
     // if results are returned, route to /results
     // if no results returned, display error
     // error should suggest entering a county instead of city?
+    axios.get('/api/address', {
+      params: {
+        address: `${this.state.address},${this.state.city},${this.state.state}`,
+      }
+    }).then(response => {
+      console.log('response from Google: ', response);
+      axios.get('/api/bBox', {
+        params: {
+          coords: response.data.results[0].geometry.location,
+          radius: this.state.proximity
+        }
+      }).then(results => {
+        console.log('results ===> ', results);
+      });
+    }).catch(err => {
+      console.log('err => ', err);
+    });
   }
 
   render() {
