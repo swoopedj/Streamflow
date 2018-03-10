@@ -1,5 +1,7 @@
 var request = require('request');
-var bBox_formatter = require('../util/format-bbox.js');
+var formatBbox = require('../util/format-bbox.js');
+const formatSite = require('../util/format-site.js');
+const mergeSiteParams = require('../util/param-merge.js');
 
 var Search = module.exports;
 
@@ -27,9 +29,9 @@ Search.getLatLongCoordinates = function(address){
 // GET request to USGS for sites within Lat/Long boundary box
 Search.findSitesInBoundaryBox = function(coordinates, radius){
   var baseUrl =  'http://waterservices.usgs.gov/nwis/iv/?format=json,1.1&bBox=';
-  var formatted_bBox = bBox_formatter(coordinates, radius);
+  var formattedBbox = formatBbox(coordinates, radius);
   var options = {
-    url: baseUrl + formatted_bBox + '&parameterCd=00060,00065,00062',
+    url: baseUrl + formattedBbox + '&parameterCd=00060,00065,00062',
   };
   return new Promise(function(resolve, reject){
     request.get(options, function(error, response, body){
@@ -37,7 +39,10 @@ Search.findSitesInBoundaryBox = function(coordinates, radius){
         reject(error);
       } else {
         response.body = JSON.parse(body);
-        resolve(response.body);
+        let site_list = response.body.value.timeSeries.map((site) => {
+          return formatSite(site, coordinates);
+        });
+        resolve(mergeSiteParams(site_list));
       }
     });
   });
