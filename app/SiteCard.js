@@ -9,9 +9,9 @@ class SiteCard extends React.Component {
             <span>{this.props.data.site_name}</span>
           </div>
           <div className='site_distance'>
-            <span>({this.props.data.distance} mi)</span>
+            <span>({this.props.data.distFromOrigin} mi)</span>
           </div>
-          <span className="g_height">{this.props.data.gage_height}</span>
+          <span className="g_height">{this.props.data.gage_height} ft</span>
         </div>
       </a>
     );
