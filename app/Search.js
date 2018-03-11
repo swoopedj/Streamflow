@@ -1,4 +1,5 @@
 import React from 'react';
+// import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 // import bBoxFormatter from './util/format-bbox.js';
@@ -98,14 +99,17 @@ class Search extends React.Component{
         address: `${this.state.address},${this.state.city},${this.state.state}`,
       }
     }).then(response => {
-      console.log('response from Google: ', response);
       axios.get('/api/bBox', {
         params: {
           coords: response.data.results[0].geometry.location,
           radius: this.state.proximity
         }
       }).then(results => {
-        console.log('SiteList ===> ', results.data);
+        if (results.data.length) {
+          this.props.history.push('/results', { site_list: results.data});
+        }
+        //set error for no results
+        
       });
     }).catch(err => {
       console.log('err => ', err);
@@ -115,7 +119,7 @@ class Search extends React.Component{
   render() {
     return (
       <SearchWrapper>
-        <h1>Streamflow Project</h1>
+        <h1>Streamflow</h1>
           <InputGroup>
             <input type='text' name="address" onChange={this.handleChange} required />
             <label>Address</label>

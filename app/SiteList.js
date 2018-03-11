@@ -33,7 +33,6 @@ class SiteList extends React.Component{
     });
     return (
       <div>
-        <span>Site List Demo:</span>
         <ul>
           {list}
         </ul>

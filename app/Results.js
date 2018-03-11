@@ -1,9 +1,12 @@
 import React from 'react';
-import data from '../data.js';
 import SiteList from './SiteList';
 
-const Results = () => (
-  <SiteList site_list={data.sites} />
-);
+class Results extends React.Component {
+  render() {
+    return (
+      <SiteList site_list={this.props.location.state.site_list} />
+    );
+  }
+}
 
 export default Results;
