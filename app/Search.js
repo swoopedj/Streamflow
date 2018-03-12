@@ -1,8 +1,6 @@
 import React from 'react';
-// import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
-// import bBoxFormatter from './util/format-bbox.js';
 
 const SearchWrapper = styled.div`
   align-items: center;
