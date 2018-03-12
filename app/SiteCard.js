@@ -37,7 +37,6 @@ class SiteCard extends React.Component {
       return;
     }
     this.setState({streamName: this.props.data.site_name});
-    console.log('streamName ===> ', this.state.streamName);
   }
 
   toggleExpand(e) {

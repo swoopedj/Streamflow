@@ -75,6 +75,9 @@
     "type": "git",
     "url": "git+https://github.com/swoopedj/Streamflow.git"
   },
+  "engines": {
+    "node": "6.10.0"
+  },
   "author": "",
   "license": "ISC",
   "bugs": {
