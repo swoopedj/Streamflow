@@ -1,19 +1,40 @@
 import React from 'react';
+import SiteDetail from './SiteDetail';
 
 class SiteCard extends React.Component {
+
+  constructor (props) {
+    super(props);
+    this.state = {
+      isOpened: false,
+    };
+
+    this.toggleExpand = this.toggleExpand.bind(this);
+  }
+
+  toggleExpand(e) {
+    e.preventDefault();
+    this.setState({isOpened: !this.state.isOpened});
+  }
+
   render() {
     return (
-      <a href={this.props.data.detail_link}>
-        <div className='site_card'>
-          <div className="site_name">
-            <span>{this.props.data.site_name}</span>
+      <div>
+        <a href="">
+          <div className='site_card' onClick={this.toggleExpand}>
+            <div className="site_name">
+              <span>{this.props.data.site_name}</span>
+            </div>
+            <div className='site_distance'>
+              <span>({this.props.data.distFromOrigin} mi)</span>
+            </div>
+            <span className="g_height">{this.props.data.gage_height} ft</span>
           </div>
-          <div className='site_distance'>
-            <span>({this.props.data.distFromOrigin} mi)</span>
-          </div>
-          <span className="g_height">{this.props.data.gage_height} ft</span>
+        </a>
+        <div className={this.state.isOpened ? 'expanded' : 'hidden'}>
+          <SiteDetail data={this.props.data} toggleHandler={this.toggleExpand} />
         </div>
-      </a>
+      </div>
     );
   }
 }
