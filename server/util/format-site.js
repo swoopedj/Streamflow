@@ -8,6 +8,7 @@ module.exports = (siteData, origin) => {
   siteObj.site_id = siteId;
   siteObj.site_name = siteData.sourceInfo.siteName;
   siteObj.site_coordinates = siteData.sourceInfo.geoLocation.geogLocation;
+  siteObj.infoLink = `waterdata.usgs.gov/nwis/uv?site_no=${siteId}`;
   siteObj.parameter = {
     code: siteData.variable.variableCode[0].value,
     value: siteData.values[0].value[0].value,

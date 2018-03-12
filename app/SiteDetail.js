@@ -1,16 +1,5 @@
 import React from 'react';
 
-class TitleBar extends React.Component {
-  render() {
-    return (
-      <div className="title_bar">
-        <span>{this.props.site_name}</span>
-        <span className="site_id"><span className="id_label">Site No. </span>{this.props.site_id}</span>
-      </div>
-    );
-  }
-}
-
 class CurrentConditions extends React.Component {
   render() {
     return (
@@ -32,53 +21,40 @@ class CurrentConditions extends React.Component {
   }
 }
 
-class SiteInfo extends React.Component {
-  render() {
-    return (
-      <a href="">View additional info for this site.</a>
-    );
-  }
-}
-
-class HydroGraph extends React.Component {
-  constructor(props) {
+class SiteDetail extends React.Component {
+  constructor (props) {
     super(props);
     this.state = {
-      graphIsOpen: false
+      streamName: this.props.data.site_name.split(' at ')[0],
     };
+    console.log('this.props: ', this.props);
+    // this.toggleGraph = this.toggleGraph.bind(this);
   }
 
+  // toggleGraph() {
+  //   console.log('toggle hydrograph!');
+  //   this.setState({graphIsOpen: !this.state.graphIsOpen});
+  // }
 
-  toggleGraph() {
-    this.setState({graphIsOpen: !this.state.graphIsOpen});
-  }
-
-  render() {
-    return (
-      <div>
-        <div className="graph_link" >
-          <a onClick={this.toggleGraph.bind(this)}>{this.state.graphIsOpen ? 'Hide Hydrograph' : 'Show Hydrograph'}</a>
-        </div>
-        <div className="graph_wrapper" style={this.state.graphIsOpen ? {display: 'block'} : {display: 'none'}}>
-          <img className="graph_img" src={this.props.graph_link} />
-        </div>
-      </div>
-    );
-  }
-}
-
-class SiteDetail extends React.Component {
   render() {
     return (
         <div className="site_detail">
-          <TitleBar site_name={this.props.data.site_name} site_id={this.props.data.site_id} />
+          <div className="title_bar">
+            <span>Site name: {this.props.data.site_name}</span>
+            <span className="site_id"><span className="id_label">Site # </span>{this.props.data.site_id}</span>
+          </div>
           <CurrentConditions 
             gage_height={this.props.data.gage_height}
             discharge={this.props.data.discharge}
             date_time={this.props.data.date_time} />
-          <SiteInfo lat={this.props.data.latitude} long={this.props.data.longitude} />
-          <HydroGraph graph_link={this.props.data.gh_graph_link} />
-          <div onClick={this.props.toggleHandler}>CLOSE</div>
+          <div className="graph_link" >
+            <button onClick={this.props.graphHandler}>{this.props.graphOpened ? 'Hide Hydrograph' : 'Show Hydrograph'}</button>
+          </div>
+          <div className="graph_wrapper" style={this.props.graphOpened ? {display: 'block'} : {display: 'none'}}>
+            <img className="graph_img" src={this.props.graph_link} />
+          </div>
+          <a href={this.props.data.siteLink}>View additional info for this site.</a>
+          <div onClick={this.props.toggleHandler}>^collapse^</div>
         </div>
     );
   }

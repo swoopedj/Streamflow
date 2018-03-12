@@ -53,7 +53,7 @@ ul {
 
 .g_height {
   float: right;
-  color: #90EFBF;
+  color: #fff;
   font-size: 24px;
 }
 
@@ -88,15 +88,13 @@ ul {
 }
 
 .title_bar {
-  background-color: #007C3D;
-  font-size: 28px;
-  color: #ffffff;
+  font-size: 1rem;
+  color: #fff;
   padding: 5px;
 
 }
 
 .title_bar > .site_id {
-  color: #dddddd;
   display: inline;
   float: right;
 }
