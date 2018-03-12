@@ -8,10 +8,11 @@ module.exports = (siteData, origin) => {
   siteObj.site_id = siteId;
   siteObj.site_name = siteData.sourceInfo.siteName;
   siteObj.site_coordinates = siteData.sourceInfo.geoLocation.geogLocation;
+  siteObj.infoLink = `https://waterdata.usgs.gov/nwis/uv?site_no=${siteId}`;
   siteObj.parameter = {
     code: siteData.variable.variableCode[0].value,
     value: siteData.values[0].value[0].value,
-    time: siteData.values[0].value[0].dateTime
+    time: new Date(siteData.values[0].value[0].dateTime).toLocaleString()
   };
   siteObj.parameterArray = [siteObj.parameter];
   siteObj.distFromOrigin = origin ? distance(JSON.parse(origin), siteObj.site_coordinates) : null;
@@ -31,6 +32,7 @@ module.exports = (siteData, origin) => {
     siteObj.parameter.param_name = 'Reservoir Elevation: ';
     siteObj.parameter.param_unit = 'ft.';
     siteObj.res_elevation = parameterValue;
+    siteObj.isReservoir = true;
   }
 
   return siteObj;
