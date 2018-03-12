@@ -78,6 +78,7 @@ class SiteDetail extends React.Component {
             date_time={this.props.data.date_time} />
           <SiteInfo lat={this.props.data.latitude} long={this.props.data.longitude} />
           <HydroGraph graph_link={this.props.data.gh_graph_link} />
+          <div onClick={this.props.toggleHandler}>CLOSE</div>
         </div>
     );
   }

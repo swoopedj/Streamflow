@@ -15,6 +15,11 @@ ul {
   padding-left:0;
 }
 
+.test-div {
+  background-color: peru;
+  height: 300px;
+}
+
 .results-wrapper h1 {
   text-align: center;
 }
@@ -58,27 +63,28 @@ ul {
   margin-left: 12px;
 }
 
-.modal_overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color:rgba(255, 255, 255, 0.75);
+.hidden {
+  pointer-events:none;
+  max-height: 0;            
+  overflow-y: hidden;
+  -webkit-transition: max-height 0.5s ease-in-out;
+  -moz-transition: max-height 0.5s ease-in-out;
+  -o-transition: max-height 0.5s ease-in-out;
+  transition: max-height 0.5s ease-in-out;
 }
 
-.site_modal {
-  width: 50%;
-  margin: 0 auto;
-  margin-top: 3%;
-  border-radius: 2px;
-  background-color: #00E06E;
-  padding-bottom: 5px;
-  overflow: hidden;
+.expanded {
+  pointer-events:none;
+  max-height: 300px;
+  overflow-y: hidden;
+  -webkit-transition: max-height 0.5s ease-in-out;
+  -moz-transition: max-height 0.5s ease-in-out;
+  -o-transition: max-height 0.5s ease-in-out;
+  transition: max-height 0.5s ease-in-out;
 }
 
 .site_detail {
-  
+  background-color: #00E06E;
 }
 
 .title_bar {
