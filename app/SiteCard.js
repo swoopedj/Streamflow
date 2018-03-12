@@ -12,13 +12,13 @@ class SiteCard extends React.Component {
     };
 
     this.toggleExpand = this.toggleExpand.bind(this);
-    this.toggleGraph = this.toggleGraph.bind(this);
+    // this.toggleGraph = this.toggleGraph.bind(this);
   }
 
-  toggleGraph() {
-    console.log('toggle hydrograph!');
-    this.setState({graphOpened: !this.state.graphOpened});
-  }
+  // toggleGraph() {
+  //   console.log('toggle hydrograph!');
+  //   this.setState({graphOpened: !this.state.graphOpened});
+  // }
 
   toggleExpand(e) {
     console.log('preventingDefault!!!!');
@@ -43,7 +43,7 @@ class SiteCard extends React.Component {
           </div>
         </a>
         <div className={this.state.isExpanded ? 'expanded' : 'hidden'}>
-          <SiteDetail data={this.props.data} graphHandler={this.toggleGraph} graphOpened={this.state.graphOpened} toggleHandler={this.toggleExpand}/>
+          <SiteDetail data={this.props.data} graphOpened={this.state.graphOpened} toggleHandler={this.toggleExpand}/>
         </div>
       </div>
     );
