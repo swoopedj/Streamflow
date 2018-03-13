@@ -7,17 +7,27 @@ class SiteCard extends React.Component {
     super(props);
     this.state = {
       discharge: this.props.data.discharge || '',
-      isExpanded: false,
+      displayValue: '',
       graphOpened: false,
+      isExpanded: false,
       streamName: '',
     };
-
+    this.formatDV = this.formatDV.bind(this);
     this.formatName = this.formatName.bind(this);
     this.toggleExpand = this.toggleExpand.bind(this);
   }
 
   componentWillMount() {
     this.formatName();
+    this.formatDV();
+  }
+
+  formatDV() {
+    if (!this.props.data.discharge) {
+      this.setState({displayValue: `${this.props.data.gage_height} ft.`});
+      return;
+    }
+    this.setState({displayValue: `${this.props.data.discharge} ft.\u00B3/s`});
   }
 
   formatName() {
@@ -26,13 +36,13 @@ class SiteCard extends React.Component {
     let ioat = name.indexOf(' at ');
     let ioNR = name.indexOf(' NR ');
     let ionr = name.indexOf(' nr ');
-    if (ioAT < 0 && ioat < 0) {
-      let partition = ioNR < 0 ? ' nr ' : ' NR ';
+    if (ioAT > 0 || ioat > 0) {
+      let partition = ioAT < 0 ? ' at ' : ' AT ';
       this.setState({streamName: name.split(partition)[0]});
       return;
     }
-    if (ioNR < 0 && ionr < 0) {
-      let partition = ioAT < 0 ? ' at ' : ' AT ';
+    if (ioNR > 0 || ionr > 0) {
+      let partition = ioNR < 0 ? ' nr ' : ' NR ';
       this.setState({streamName: name.split(partition)[0]});
       return;
     }
@@ -55,7 +65,7 @@ class SiteCard extends React.Component {
             <div className='site_distance'>
               <span>({this.props.data.distFromOrigin} mi)</span>
             </div>
-            <span className="discharge">{this.state.discharge + (this.state.discharge ? ' ft.'+ '\u00B3' + '/s' : '')}</span>
+            <span className="display-value">{this.state.displayValue}</span>
           </div>
         </a>
         <div className={this.state.isExpanded ? 'expanded' : 'hidden'}>
