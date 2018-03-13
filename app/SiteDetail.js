@@ -60,7 +60,7 @@ class SiteDetail extends React.Component {
             </div>
           </div>
           <div className="detail_footer">
-            <HydroGraph graph_link={this.props.data.q_graph_link} />
+            <HydroGraph graph_link={this.props.data.q_graph_link || this.props.data.gh_graph_link} />
             <a href={this.props.data.infoLink} target="blank">View additional info for this site.</a>
           </div>
           <div className="close" onClick={this.props.toggleHandler}>CLOSE</div>
