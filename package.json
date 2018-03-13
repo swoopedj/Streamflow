@@ -1,6 +1,6 @@
 {
   "name": "streamflow",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Web app for viewing local USGS hydrologic data",
   "main": "index.js",
   "scripts": {
@@ -76,7 +76,8 @@
     "url": "git+https://github.com/swoopedj/Streamflow.git"
   },
   "engines": {
-    "node": "6.10.0"
+    "node": "8.10.0",
+    "npm": "5.6.0"
   },
   "author": "",
   "license": "ISC",
