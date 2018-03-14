@@ -33,6 +33,7 @@ const InputGroup = styled.div`
   > input {
     border: none;
     border-bottom: 2px solid black;
+    box-shadow: none;
     display: block;
     font-size: 1rem;
     margin-top: 0.5rem;
@@ -60,11 +61,14 @@ const InputGroup = styled.div`
   }
 
   button {
-    border-radius: 7px;
     background-color: #40A4DF;
+    border-radius: 7px;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
     color: #fff;
     font-size: 1rem;
     margin-left: 20px;
+    outline: none;
     padding: 5px 7px;
     &.disabled {
       background-color: #d3d3d3
@@ -86,7 +90,7 @@ class Search extends React.Component{
       city: '',
       proximity: '3',
       state: '',
-      error: '',
+      error: ''
     };
 
     this.getSites = this.getSites.bind(this);
@@ -99,6 +103,7 @@ class Search extends React.Component{
 
   handleChange (e) {
     this.setState({[e.target.name]: e.target.value});
+    this.validateField(e);
   }
 
   getCoordinates(){
@@ -214,7 +219,7 @@ class Search extends React.Component{
               <option value="10">10 mi</option>
               <option value="20">20 mi</option>
             </select>
-            <button onClick={this.search} className={this.state.cityError || this.state.stateError? 'disabled' : ''} disabled={this.state.validationError}>Search</button>
+            <button onClick={this.search} className={this.state.cityError || this.state.stateError ? 'disabled' : ''} disabled={this.state.cityError || this.state.stateError}>Search</button>
           </InputGroup>
           <button type="button" onClick={this.getCoordinates}>or Find Near Me</button>
           <div className="error">{this.state.error}</div>

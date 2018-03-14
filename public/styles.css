@@ -147,6 +147,10 @@ ul {
   text-align: center;
 }
 
+.graph_link > button {
+  cursor: pointer;
+}
+
 .graph_wrapper {
   pointer-events:none;
   max-height: 0;
