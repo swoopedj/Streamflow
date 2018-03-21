@@ -31,7 +31,7 @@ Search.findSitesInBoundaryBox = function(coordinates, radius){
   var baseUrl =  'http://waterservices.usgs.gov/nwis/iv/?format=json,1.1&bBox=';
   var formattedBbox = formatBbox(coordinates, radius);
   var options = {
-    url: baseUrl + formattedBbox + '&parameterCd=00060,00065,00062',
+    url: baseUrl + formattedBbox + '&parameterCd=00060,00065,00062,62615,62614',
   };
   return new Promise(function(resolve, reject){
     request.get(options, function(error, response, body){

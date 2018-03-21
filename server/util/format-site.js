@@ -28,10 +28,11 @@ module.exports = (siteData, origin) => {
     siteObj.gage_height = parameterValue;
     siteObj.gh_graph_link = `https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=${siteId}&parm_cd=00065&period=7`;
   }
-  else if(siteObj.parameter.code === '00062'){
+  else if(siteObj.parameter.code === '00062' || siteObj.parameter.code === '62615' || siteObj.parameter.code === '62614'){
     siteObj.parameter.param_name = 'Reservoir Elevation: ';
     siteObj.parameter.param_unit = 'ft.';
     siteObj.res_elevation = parameterValue;
+    siteObj.res_graph_link = `https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=${siteId}&parm_cd=${siteObj.parameter.code}&period=7`;
     siteObj.isReservoir = true;
   }
 

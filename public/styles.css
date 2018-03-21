@@ -30,6 +30,8 @@ ul {
 .site_card {
   background-color: #40A4DF;
   border-bottom: 2px solid #40A4DF;
+  display: flex;
+  justify-content: space-between;
   padding: 10px;
   overflow: hidden;
 }
@@ -46,30 +48,24 @@ ul {
     -o-transition: background-color 500ms ease-out 0.07s;
     transition: background-color 500ms ease-out 0.07s;
   border-bottom: 2px solid mediumseagreen;
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-wrapper {
+  display: flex;
+  align-items: baseline;
 }
  
-.site_name {
+.primary-info {
   color: #ffffff;
   font-size: 24px;
-  display: inline-block;
+  margin: 5px
 }
 
-.data_label {
-  float: right;
-  display: inline-block;
-  font-size: 14px;
-}
-
-.site_card > .display-value {
-  float: right;
-  color: #fff;
-  font-size: 24px;
-}
-
-.site_distance {
+.descriptor {
   color: #dddddd;
-  display: inline;
-  margin-left: 12px;
+  margin: 10px;
 }
 
 .hidden {

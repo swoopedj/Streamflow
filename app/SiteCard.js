@@ -3,18 +3,13 @@ import SiteDetail from './SiteDetail';
 
 class SiteCard extends React.Component {
 
-  constructor (props) {
-    super(props);
-    this.state = {
-      discharge: this.props.data.discharge || '',
-      displayValue: '',
-      graphOpened: false,
-      isExpanded: false,
-      streamName: '',
-    };
-    this.formatDV = this.formatDV.bind(this);
-    this.formatName = this.formatName.bind(this);
-    this.toggleExpand = this.toggleExpand.bind(this);
+  state = {
+    dataDescriptor: '',
+    discharge: this.props.data.discharge || '',
+    displayValue: '',
+    graphOpened: false,
+    isExpanded: false,
+    streamName: ''
   }
 
   componentWillMount() {
@@ -22,54 +17,62 @@ class SiteCard extends React.Component {
     this.formatDV();
   }
 
-  formatDV() {
-    if (!this.props.data.discharge) {
-      this.setState({displayValue: `${this.props.data.gage_height} ft.`});
+  formatDV = () => {
+    if (this.props.data.isReservoir) {
+      this.setState({displayValue: `${this.props.data.res_elevation} ft.`, dataDescriptor: 'Elev. above MSL:'})
       return;
     }
-    this.setState({displayValue: `${this.props.data.discharge} ft.\u00B3/s`});
+    if (!this.state.discharge) {
+      this.setState({displayValue: `${this.props.data.gage_height} ft.`, dataDescriptor: 'Gage Height:'});
+      return;
+    }
+    this.setState({displayValue: `${this.state.discharge} ft.\u00B3/s`, dataDescriptor: 'Discharge:'});
   }
 
-  formatName() {
-    let name = this.props.data.site_name;
-    let ioAT = name.indexOf(' AT ');
-    let ioat = name.indexOf(' at ');
-    let ioNR = name.indexOf(' NR ');
-    let ionr = name.indexOf(' nr ');
+  formatName = () => {
+    const name = this.props.data.site_name;
+    const ioAT = name.indexOf(' AT ');
+    const ioat = name.indexOf(' at ');
+    const ioNR = name.indexOf(' NR ');
+    const ionr = name.indexOf(' nr ');
     if (ioAT > 0 || ioat > 0) {
-      let partition = ioAT < 0 ? ' at ' : ' AT ';
+      const partition = ioAT < 0 ? ' at ' : ' AT ';
       this.setState({streamName: name.split(partition)[0]});
       return;
     }
     if (ioNR > 0 || ionr > 0) {
-      let partition = ioNR < 0 ? ' nr ' : ' NR ';
+      const partition = ioNR < 0 ? ' nr ' : ' NR ';
       this.setState({streamName: name.split(partition)[0]});
       return;
     }
     this.setState({streamName: this.props.data.site_name});
   }
 
-  toggleExpand(e) {
+  toggleExpand = (e) => {
     e.preventDefault();
     this.setState({isExpanded: !this.state.isExpanded});
   }
 
   render() {
+    const { dataDescriptor, displayValue, distFromOrigin, graphOpened, isExpanded, streamName } = this.state;
+    const { data } = this.props;
+
     return (
       <div>
         <a href="">
-          <div className={'site_card' + (this.state.isExpanded ? ' active' : '')} onClick={this.toggleExpand}>
-            <div className="site_name">
-              <span>{this.state.streamName}</span>
+          <div className={'site_card' + (isExpanded ? ' active' : '')} onClick={this.toggleExpand}>
+            <div className="info-wrapper">
+              <span className="primary-info">{streamName}</span>
+              <span className="descriptor">{data.distFromOrigin} mi</span>
             </div>
-            <div className='site_distance'>
-              <span>({this.props.data.distFromOrigin} mi)</span>
+            <div className="info-wrapper">
+              <span className="descriptor">{dataDescriptor}</span>
+              <span className="primary-info">{displayValue}</span>
             </div>
-            <span className="display-value">{this.state.displayValue}</span>
           </div>
         </a>
-        <div className={this.state.isExpanded ? 'expanded' : 'hidden'}>
-          <SiteDetail data={this.props.data} streamName={this.state.streamName} graphOpened={this.state.graphOpened} toggleHandler={this.toggleExpand}/>
+        <div className={isExpanded ? 'expanded' : 'hidden'}>
+          <SiteDetail data={data} streamName={streamName} graphOpened={graphOpened} toggleHandler={this.toggleExpand}/>
         </div>
       </div>
     );

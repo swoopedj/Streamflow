@@ -39,6 +39,7 @@ const InputGroup = styled.div`
     margin-top: 0.5rem;
     outline: none;
     width: 100%;
+    -webkit-appearance: none;
   }
 
   > label {
@@ -83,30 +84,20 @@ const InputGroup = styled.div`
 
 class Search extends React.Component{
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      address: '',
-      city: '',
-      proximity: '3',
-      state: '',
-      error: ''
-    };
-
-    this.getSites = this.getSites.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.search = this.search.bind(this);
-    this.getCoordinates = this.getCoordinates.bind(this);
-    this.showNavError = this.showNavError.bind(this);
-    this.validateField = this.validateField.bind(this);
+  state = {
+    address: '',
+    city: '',
+    proximity: '3',
+    state: '',
+    error: ''
   }
 
-  handleChange (e) {
+  handleChange = (e) => {
     this.setState({[e.target.name]: e.target.value});
     this.validateField(e);
   }
 
-  getCoordinates(){
+  getCoordinates = () => {
     this.setState({error: ''});
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
@@ -120,7 +111,7 @@ class Search extends React.Component{
 
   }
 
-  getSites(location) {
+  getSites = (location) => {
     axios.get('/api/bBox', {
       params: {
         coords: location,
@@ -136,7 +127,7 @@ class Search extends React.Component{
     });
   }
 
-  search () {
+  search = () => {
     this.setState({error: ''});
 
     // pass form data to API
@@ -166,7 +157,7 @@ class Search extends React.Component{
     });
   }
 
-  showNavError(error) {
+  showNavError = (error) => {
     switch(error.code) {
     case error.PERMISSION_DENIED:
       this.setState({error: 'Permission denied'});
@@ -180,7 +171,7 @@ class Search extends React.Component{
     }
   }
 
-  validateField(e) {
+  validateField = (e) => {
     let err = `${e.target.name}Error`;
     if (!e.target.value) {
       this.setState({[err]: true});
@@ -191,6 +182,8 @@ class Search extends React.Component{
   }
 
   render() {
+    const { cityError, error, proximity, stateError} = this.state;
+
     return (
       <SearchWrapper>
         <h1>Streamflow</h1>
@@ -202,16 +195,16 @@ class Search extends React.Component{
           <InputGroup>
             <input type='text' name="city" onChange={this.handleChange} onBlur={this.validateField} required />
             <label>City</label>
-            <span className='error'>{this.state.cityError ? 'Required' : ''}</span>
+            <span className='error'>{cityError ? 'Required' : ''}</span>
           </InputGroup>
           <InputGroup>
             <input type='text' name="state" onChange={this.handleChange} onBlur={this.validateField} required />
             <label>State</label>
-            <span className='error'>{this.state.stateError ? 'Required' : ''}</span>
+            <span className='error'>{stateError ? 'Required' : ''}</span>
           </InputGroup>
           <InputGroup>
             <span>Proximity</span>
-            <select name="proximity" value={this.state.proximity} onChange={this.handleChange}>
+            <select name="proximity" value={proximity} onChange={this.handleChange}>
               <option value="1">1 mi</option>
               <option value="2">2 mi</option>
               <option value="3">3 mi</option>
@@ -219,10 +212,10 @@ class Search extends React.Component{
               <option value="10">10 mi</option>
               <option value="20">20 mi</option>
             </select>
-            <button onClick={this.search} className={this.state.cityError || this.state.stateError ? 'disabled' : ''} disabled={this.state.cityError || this.state.stateError}>Search</button>
+            <button onClick={this.search} className={cityError || stateError ? 'disabled' : ''} disabled={cityError || stateError}>Search</button>
           </InputGroup>
           <button type="button" onClick={this.getCoordinates}>or Find Near Me</button>
-          <div className="error">{this.state.error}</div>
+          <div className="error">{error}</div>
       </SearchWrapper>
     );
   }
