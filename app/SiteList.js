@@ -4,21 +4,19 @@ import SiteCard from './SiteCard.js';
 
 class SiteList extends React.Component{
 
-  constructor (props) {
-    super(props);
-    this.state = {
-      sites: this.props.site_list,
-    };
+  state = {
+    sites: this.props.site_list,
   }
 
-  renderSiteList () {
-    const list = this.state.sites.map((site) => {
+  renderSiteList = () => {
+    const list = this.props.site_list.map((site) => {
       return (
         <li key={site.site_id} >
           <SiteCard data={site} />
         </li>
       );
     });
+
     return (
       <div>
         <ul>
