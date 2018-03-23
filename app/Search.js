@@ -11,9 +11,13 @@ const SearchWrapper = styled.div`
   font-family: 'Open Sans', sans-serif;
   letter-spacing: 0.5px;
   margin: auto;
-  margin-top: 25%;
   padding: 10px;
   width: 40%;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   span {
     margin: 5px;
