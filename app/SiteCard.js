@@ -19,7 +19,7 @@ class SiteCard extends React.Component {
 
   formatDV = () => {
     if (this.props.data.isReservoir) {
-      this.setState({displayValue: `${this.props.data.res_elevation} ft.`, dataDescriptor: 'Elev. above MSL:'})
+      this.setState({displayValue: `${this.props.data.res_elevation} ft.`, dataDescriptor: 'Elevation:'})
       return;
     }
     if (!this.state.discharge) {
@@ -63,7 +63,7 @@ class SiteCard extends React.Component {
           <div className={'site_card' + (isExpanded ? ' active' : '')} onClick={this.toggleExpand}>
             <div className="info-wrapper">
               <span className="primary-info">{streamName}</span>
-              <span className="descriptor">{data.distFromOrigin} mi</span>
+              <span className="distance">{data.distFromOrigin} mi</span>
             </div>
             <div className="info-wrapper">
               <span className="descriptor">{dataDescriptor}</span>

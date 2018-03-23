@@ -1,5 +1,5 @@
 #app {
-  font-family: 'Open Sans', sans-serif;;
+  font-family: 'Open Sans', sans-serif;
 }
 
 a:hover {
@@ -48,8 +48,6 @@ ul {
     -o-transition: background-color 500ms ease-out 0.07s;
     transition: background-color 500ms ease-out 0.07s;
   border-bottom: 2px solid mediumseagreen;
-  display: flex;
-  justify-content: space-between;
 }
 
 .info-wrapper {
@@ -60,12 +58,20 @@ ul {
 .primary-info {
   color: #ffffff;
   font-size: 24px;
-  margin: 5px
 }
 
 .descriptor {
   color: #dddddd;
-  margin: 10px;
+  font-size: 16px;
+}
+
+.site_card .descriptor {
+  margin-right: 5px;
+}
+
+.distance {
+  color: khaki;
+  margin-left: 5px;
 }
 
 .hidden {
@@ -95,31 +101,54 @@ ul {
 }
 
 .title_bar {
-  font-size: 1rem;
-}
-
-.title_bar > .site_id {
-  display: inline;
-  float: right;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
 .title_info {
   display: inline-flex;
   flex-direction: column;
-  margin-bottom: 1rem;
 }
 
 .site_id > .id_label {
+  color: #dddddd;
   font-size: 12px;
 }
 
 .conditions {
   font-size: 22px;
 }
+@media only screen and (max-width: 600px) {
+  .info-wrapper {
+    flex-direction: column;
+  }
 
-.param_label {
-  font-size: 16px;
-  color: #fff;
+  .title_bar {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .conditions {
+    font-size: 18px
+  }
+
+  .detail_footer > a {
+    font-size: 12px;
+  }
+  .primary-info {
+    font-size: 18px;
+  }
+
+  .descriptor {
+    font-size: 14px;
+  }
+
+  .title_bar {
+    font-size: 14px;
+  }
 }
 
 .close {
