@@ -13,7 +13,6 @@ const SearchWrapper = styled.div`
   margin: auto;
   padding: 10px;
   width: 40%;
-
   position: fixed;
   top: 50%;
   left: 50%;
@@ -38,13 +37,13 @@ const InputGroup = styled.div`
   > input {
     border: none;
     border-bottom: 2px solid black;
+    border-radius: 0;
     box-shadow: none;
     display: block;
     font-size: 1rem;
     margin-top: 0.5rem;
     outline: none;
     width: 100%;
-    -webkit-appearance: none;
   }
 
   > label {
@@ -60,10 +59,33 @@ const InputGroup = styled.div`
     -webkit-transition:0.2s ease all;
   }
 
+  select {
+    background-color: inherit;
+    border: none;
+    font-size: 12px;
+  }
+
   > input:focus ~ label, input:valid ~ label {
     top: -20px;
     font-size: 0.75rem;
     color: #40A4DF;
+  }
+
+  &:nth-child(5) {
+    display: flex;
+    align-items: baseline;
+
+    > div {
+      margin-bottom: 5px;
+    }
+
+    @media (max-width: 500px) {
+      flex-direction: column;
+      align-items: center;
+      > button {
+        margin-left: 0;
+      }
+    }
   }
 
   button {
@@ -204,15 +226,17 @@ class Search extends React.Component{
             <span className='error'>{stateError ? 'Required' : ''}</span>
           </InputGroup>
           <InputGroup>
-            <span>Proximity</span>
-            <select name="proximity" value={proximity} onChange={this.handleChange}>
-              <option value="1">1 mi</option>
-              <option value="2">2 mi</option>
-              <option value="3">3 mi</option>
-              <option value="5">5 mi</option>
-              <option value="10">10 mi</option>
-              <option value="20">20 mi</option>
-            </select>
+            <div>
+              <span>Proximity</span>
+              <select name="proximity" value={proximity} onChange={this.handleChange}>
+                <option value="1">1 mi</option>
+                <option value="2">2 mi</option>
+                <option value="3">3 mi</option>
+                <option value="5">5 mi</option>
+                <option value="10">10 mi</option>
+                <option value="20">20 mi</option>
+              </select>
+            </div>
             <button onClick={this.search} className={cityError || stateError ? 'disabled' : ''} disabled={cityError || stateError}>Search</button>
           </InputGroup>
           <button type="button" onClick={this.getCoordinates}>or Find Near Me</button>
