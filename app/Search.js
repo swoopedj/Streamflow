@@ -11,6 +11,7 @@ const SearchWrapper = styled.div`
   font-family: 'Open Sans', sans-serif;
   letter-spacing: 0.5px;
   margin: auto;
+  margin-top: 25%;
   padding: 10px;
   width: 40%;
 
@@ -106,8 +107,10 @@ class Search extends React.Component{
           lng: position.coords.longitude
         };
         this.getSites(location);
-      }, this.showNavError);
+      }, this.showNavError, {timeout: 8000});
     }
+
+
 
   }
 
@@ -121,7 +124,6 @@ class Search extends React.Component{
       if (results.data.length) {
         this.props.history.push('/results', { site_list: results.data});
       }
-      //set error for no results
       this.setState({error: 'No sites found in area.\nTry another location or increasing proximity.'});
       
     });
@@ -129,11 +131,6 @@ class Search extends React.Component{
 
   search = () => {
     this.setState({error: ''});
-
-    // pass form data to API
-    // if results are returned, route to /results
-    // if no results returned, display error
-    // error should suggest entering a county instead of city?
     axios.get('/api/address', {
       params: {
         address: `${this.state.address},${this.state.city},${this.state.state}`,

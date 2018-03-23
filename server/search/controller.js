@@ -16,6 +16,7 @@ Search.getLatLongCoordinates = function(address){
   return new Promise(function(resolve, reject){
     request.get(options, function(error, response, body){
       if(error){
+        console.log('error: ', error)
         reject(error);
       } else {
         response.body = JSON.parse(body);

@@ -17,22 +17,25 @@ module.exports = (siteData, origin) => {
   siteObj.parameterArray = [siteObj.parameter];
   siteObj.distFromOrigin = origin ? distance(JSON.parse(origin), siteObj.site_coordinates) : null;
   if(siteObj.parameter.code === '00060'){
-    siteObj.parameter.param_name = 'Stream Flow: ';
+    siteObj.parameter.label = 'Discharge: ';
+    siteObj.parameter.name = 'discharge';
     siteObj.parameter.param_unit = 'ft.\u00B3/sec.';
     siteObj.discharge = parameterValue;
-    siteObj.q_graph_link = `https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=${siteId}&parm_cd=00060&period=7`;
+    siteObj.parameter.graph_link = `https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=${siteId}&parm_cd=00060&period=7`;
   }
   else if(siteObj.parameter.code === '00065'){
-    siteObj.parameter.param_name = 'Gage Height: ';
+    siteObj.parameter.label = 'Gage Height: ';
+    siteObj.parameter.name = 'gage_height';
     siteObj.parameter.param_unit = 'ft.';
     siteObj.gage_height = parameterValue;
-    siteObj.gh_graph_link = `https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=${siteId}&parm_cd=00065&period=7`;
+    siteObj.parameter.graph_link = `https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=${siteId}&parm_cd=00065&period=7`;
   }
   else if(siteObj.parameter.code === '00062' || siteObj.parameter.code === '62615' || siteObj.parameter.code === '62614'){
-    siteObj.parameter.param_name = 'Reservoir Elevation: ';
+    siteObj.parameter.label = "Elevation: "
+    siteObj.parameter.name = 'elevation';
     siteObj.parameter.param_unit = 'ft.';
     siteObj.res_elevation = parameterValue;
-    siteObj.res_graph_link = `https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=${siteId}&parm_cd=${siteObj.parameter.code}&period=7`;
+    siteObj.parameter.graph_link = `https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=${siteId}&parm_cd=${siteObj.parameter.code}&period=7`;
     siteObj.isReservoir = true;
   }
 
