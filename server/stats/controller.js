@@ -1,11 +1,10 @@
 const request = require('request');
 const stats_formatter = require('../util/format-stats.js');
-
 const Stats = module.exports;
 
-// //GET request to USGS Stats API for specific site id
-Stats.getSiteStats = function(siteId){  
-  var baseUrl =  `https://waterservices.usgs.gov/nwis/stat/?format=rdb&sites=${siteId}&statReportType=daily&statTypeCd=all&parameterCd=00065,00060&Access=0`;
+// GET request to USGS Stats API for specific site id
+Stats.getSiteStats = function(siteIds){
+  var baseUrl =  `https://waterservices.usgs.gov/nwis/stat/?format=rdb&sites=${siteIds.join(',')}&statReportType=daily&statTypeCd=all&parameterCd=00065,00060&Access=0`;
   var options = {
     url: baseUrl,
   };
@@ -15,9 +14,14 @@ Stats.getSiteStats = function(siteId){
         console.log('Error: ', error)
         throw new Error(error)
       } else {
-        stats = JSON.parse(body);
-        response.body = stats_formatter(stats);
-        resolve(response.body);
+        stats = parseString(stats_data, (error, result) => {
+          if(error) {
+            throw new Error(error);
+          }
+          // return result;
+          response.body = stats_formatter(siteIds, result);
+          resolve(response.body);
+        });
       }
     })    
   })

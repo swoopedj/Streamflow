@@ -1,5 +1,7 @@
-var router = require('express').Router();
-var Search = require('../search/controller.js');
+const router = require('express').Router();
+const Search = require('../search/controller.js');
+const Stats = require('../stats/controller.js');
+
 
 router.get('/address', function(req, res){
   Search.getLatLongCoordinates(req.query.address)
@@ -24,6 +26,13 @@ router.get('/geo-bBox', function(req, res){
 
 router.get('/siteId/:id', function(req, res){
   Search.getDataBySiteId(req.params.id)
+  .then(function(response){
+    res.send(response);
+  });
+}); 
+
+router.get('/siteId', function(req, res){
+  Stats.getDailyStats(req.query.ids)
   .then(function(response){
     res.send(response);
   });
