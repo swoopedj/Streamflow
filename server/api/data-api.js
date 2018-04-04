@@ -31,7 +31,7 @@ router.get('/siteId/:id', function(req, res){
   });
 }); 
 
-router.get('/siteId', function(req, res){
+router.get('/stats', function(req, res){
   Stats.getDailyStats(req.query.ids)
   .then(function(response){
     res.send(response);
