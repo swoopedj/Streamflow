@@ -1,5 +1,4 @@
-const converter = require('csvtojson');
-const parser = require('csv-parse');
+const parse = require('csv-parse');
 
 module.exports = (siteIds, statsData) => {
   const dayOfMonth = new Date().getDate().toString();
@@ -9,16 +8,20 @@ module.exports = (siteIds, statsData) => {
   })
 
   return new Promise((resolve, reject) => {
-    parser(statsData, {delimiter: '\t', columns: true, comment: '#'}, (err, output) => {
+    parse(statsData, {delimiter: '\t', columns: true, comment: '#'}, (err, output) => {
       if (err) {
         reject(err);
       }
 
       output.forEach(stat => {
-        if(stat.day_nu === dayOfMonth) {
-          statsObj[stat.site_no][stat.parameter_cd] = stat;
+        if(statsObj[stat.site_no] && stat.mean_va){
+          if(statsObj[stat.site_no][stat.parameter_cd]) {
+            statsObj[stat.site_no][stat.parameter_cd].push(stat);
+          } else {
+            statsObj[stat.site_no][stat.parameter_cd] = [stat];
+          }
         }
-      })
+      });
       resolve(statsObj);
     });
   })
