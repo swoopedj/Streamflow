@@ -4,7 +4,7 @@ const Stats = module.exports;
 
 // GET request to USGS Stats API for specific site id
 Stats.getDailyStats = function(siteIds){
-  var baseUrl =  `https://waterservices.usgs.gov/nwis/stat/?format=rdb&sites=${siteIds.join(',')}&statReportType=daily&statTypeCd=all&parameterCd=00065,00062,00060,62614,62615&Access=0`;
+  var baseUrl =  `https://waterservices.usgs.gov/nwis/stat/?format=rdb&sites=${siteIds.join(',')}&statReportType=annual&statTypeCd=all&parameterCd=00065,00062,00060,62614,62615&Access=0`;
   var options = {
     url: baseUrl,
   };
