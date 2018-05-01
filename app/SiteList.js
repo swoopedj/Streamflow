@@ -20,6 +20,13 @@ class SiteList extends React.Component{
     }).then(response => {
       console.log('response in component: ', response)
     });
+    axios.get('/api/stats', {
+      params: {
+        ids: ids,
+      }
+    }).then(response => {
+      console.log('response in component: ', response)
+    });
   }
 
   renderSiteList = () => {
