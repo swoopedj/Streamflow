@@ -7,6 +7,7 @@ class SiteList extends React.Component{
 
   state = {
     sites: this.props.site_list,
+    stats: null
   }
 
   componentWillMount = () => {
@@ -19,21 +20,23 @@ class SiteList extends React.Component{
       }
     }).then(response => {
       console.log('response in component: ', response)
+      this.setState({stats: response.data})
+
     });
-    axios.get('/api/stats', {
-      params: {
-        ids: ids,
-      }
-    }).then(response => {
-      console.log('response in component: ', response)
-    });
+    // axios.get('/api/stats', {
+    //   params: {
+    //     ids: ids,
+    //   }
+    // }).then(response => {
+    //   console.log('response in component: ', response)
+    // });
   }
 
   renderSiteList = () => {
     const list = this.props.site_list.map((site) => {
       return (
         <li key={site.site_id} >
-          <SiteCard data={site} />
+          <SiteCard data={site} stats={this.state.stats && this.state.stats[site.id]} />
         </li>
       );
     });

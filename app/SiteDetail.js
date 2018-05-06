@@ -37,6 +37,14 @@ class SiteDetail extends React.Component {
     return site_params;
   }
 
+  mapStats = () => {
+    console.log('this.props.stats => ', this.props.stats)
+    const site_stats = Object.keys(this.props.stats).map(param => {
+      return (
+        <div className="stats">Stats will go here maybe {this.props.stats[param].mean_va}</div>)
+    })
+  }
+
   render() {
     const { infoLink, parameter, site_detail, site_id, site_name } = this.props.data;
     const { graphIsOpen, streamName } = this.state;
@@ -55,6 +63,9 @@ class SiteDetail extends React.Component {
           </div>
           <div className="conditions">
             {this.mapParams()}
+          </div>
+          <div className="stats">
+            {this.props.stats ? this.mapStats() : null}
           </div>
           <div className="detail_footer">
             <HydroGraph graph_link={parameter.graph_link} toggleGraph={this.toggleGraph} graphIsOpen={graphIsOpen}/>

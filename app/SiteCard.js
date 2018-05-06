@@ -55,7 +55,7 @@ class SiteCard extends React.Component {
 
   render() {
     const { dataDescriptor, displayValue, distFromOrigin, graphOpened, isExpanded, streamName } = this.state;
-    const { data } = this.props;
+    const { data, stats } = this.props;
 
     return (
       <div>
@@ -72,7 +72,7 @@ class SiteCard extends React.Component {
           </div>
         </a>
         <div className={isExpanded ? 'expanded' : 'hidden'}>
-          <SiteDetail data={data} streamName={streamName} graphOpened={graphOpened} toggleHandler={this.toggleExpand}/>
+          <SiteDetail data={data} streamName={streamName} graphOpened={graphOpened} stats={stats} toggleHandler={this.toggleExpand}/>
         </div>
       </div>
     );
