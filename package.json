@@ -22,7 +22,7 @@
     "csv-parse": "^2.1.0",
     "dotenv": "^5.0.1",
     "express": "4.15.3",
-    "lodash": "4.17.4",
+    "lodash": "4.17.19",
     "preact": "8.1.0",
     "preact-compat": "3.16.0",
     "prop-types": "15.5.10",
